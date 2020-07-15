@@ -177,8 +177,9 @@ annotation.badge path.subject-pointer, .annotation.badge path.subject {
 
 
 #modedemploi{
-      visibility: hidden ;
-      margin-left: 5em;
+      visibility: visible ;
+      padding:0.5rem;
+      /*margin-left: 5em;
       margin-right: 5em;
       padding:0.5rem;
       background: #FFFFFF;
@@ -187,7 +188,7 @@ annotation.badge path.subject-pointer, .annotation.badge path.subject {
       border-radius: 2px;
       -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
       -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);*/
       /*pointer-events: none;*/  
       font-family: 'Oswald', sans-serif;
       font-size: 1.75rem;
@@ -252,6 +253,7 @@ annotation.badge path.subject-pointer, .annotation.badge path.subject {
 
 @media only screen and (max-width: 750px) {
   #modedemploi {
-    visibility:visible;
+    width: 100%;
+    background:#ffffff;
   }
 }

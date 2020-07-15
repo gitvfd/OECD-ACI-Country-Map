@@ -32,7 +32,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		$('#country_dropdown').select2({ width: '180px' });
+		$('#country_dropdown').select2({ width: '300px' });
 	});
 
 	var tabCoord=[];
@@ -42,21 +42,9 @@
   	var counter2=0;
 	var labels = [];
   	
- 	var countryData=[];
- 	var cityData=[];
 
-  	d3.tsv("data/coord_country.tsv", function(error, coudata){
-   	 	coudata.forEach(function(d){
-        	countryData.push(d);
-  		})
-   	})
   
 
-	d3.tsv("data/coord_cities.tsv", function (error, citdata) {
-		citdata.forEach(function (d) {
-			cityData.push(d);
-		})
-	})
 
 	var urls = {
 	    world: "data/world.json",
@@ -64,9 +52,6 @@
 	    link: "data/pagelink.tsv"
 	};
 
-	var divMap = d3.select("body").append("div") 
-	    .attr("class", "tooltip")       
-	    .style("opacity", 0);
 
     var format = d3.format(",.1f");
     var margin = 20,centered;
@@ -112,6 +97,11 @@
 
 	var country=[];
 	var link=[];
+
+
+	var divMap = d3.select("body").append("div")
+		.attr("class", "tooltip")
+		.style("opacity", 0);
 
 	d3.queue()
 	    .defer(d3.json, urls.world)
@@ -253,9 +243,11 @@
 
 				var htmlText = "<b>" + d.data.Country + "</b><br><i class='linkName'>Click to access country page</i>"//+" (" + "<b>" + d.data.ISO3 + ")</b><Br/>Lat:" + d.data.lat + "</b><Br/>Lon:" + d.data.lng;
 				
+				var fromTop= parseFloat(element.attr('cy')) +30
+
 				divMap.html(htmlText)
 					.style("left", element.attr('cx') + "px")
-					.style("top", element.attr('cy') + "px");
+					.style("top", fromTop + "px");
 			})
 			.on('mouseout', function (d) {
 
@@ -264,7 +256,6 @@
 					.style("opacity", 0);
 			})
 			.on('click', function (d) {
-				console.log(d)
 				window.open(
 					d.data.link,
 					'_blank' // <- This is what makes it open in a new window.

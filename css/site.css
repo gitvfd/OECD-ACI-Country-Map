@@ -54,16 +54,16 @@ div.tooltip {
     transform: translate(-50%,-100%);
 }
 
-div.tooltip::after {
+/**div.tooltip::after {
   content: " ";
   position: absolute;
-  top: 100%;  /* At the top of the tooltip */
+  top: 100%;  
   left: 50%;
   margin-left: -10px;
   border-width: 10px;
   border-style: solid;
   border-color: #fff transparent transparent transparent;
-}
+}**/
 
 .linkName{
  font-size: 1.2rem;
@@ -250,10 +250,9 @@ annotation.badge path.subject-pointer, .annotation.badge path.subject {
   padding:5px 25px 3px 0px;
 }
 
-
 @media only screen and (max-width: 750px) {
   #modedemploi {
     width: 100%;
-    background:#ffffff;
+    background:#0d9796;
   }
 }

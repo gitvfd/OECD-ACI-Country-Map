@@ -13,7 +13,7 @@
 	<script src="libs/d3.v4.jetpack.min.js"></script>
 	<script src="libs/topojson.v1.min.js"></script>
 	<script src="libs/d3-queue.v3.min.js"></script>
-	<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+	<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script><script src="//unpkg.com/topojson@3"></script>
 
 </head>
 
@@ -63,7 +63,15 @@
     	height= fixedHeight// width*mapRatio;
 
 
+
+	const zoom = d3.zoom()
+		.scaleExtent([1, 8])
+		.on('zoom', zoomed);
+
+
+
 	var scaleValue;
+
 	if (width > 1000)
 		scaleValue = height / 2.8
 	else
@@ -79,12 +87,15 @@
   	var path = d3.geoPath()
                      .projection(projection);
 
-  	var svg = d3.select("#aboutMap").append("svg")
+  	var svg1 = d3.select("#aboutMap").append("svg")
   	    .attr("width", width)
   	    .attr("height", height )
   	    //.on("click", stopped, true);
 
 
+	svg1.call(zoom);
+
+	const svg = svg1.append('g')
 
     var worldMap=svg.append("g");
     var annotationLayer=svg.append("g");
@@ -128,7 +139,7 @@
 			if(d.ISO3==value){
 				window.open(
 					d.link,
-					'_blank' // <- This is what makes it open in a new window.
+					'_self' // <- This is what makes it open in a new window.
 				);
 			}
 
@@ -217,8 +228,8 @@
 
 		        return projection([lng,lat])[1];
 	      	})
-	      	.attr("r",width/300)
-	      	.attr("fill","#F58380")
+	      	.attr("r",width/350)
+	      	.attr("fill","#0d9796")
 
 		polygonData=link;
 		polygons = voronoi(polygonData).polygons();
@@ -235,6 +246,7 @@
 			.on('mouseover', function (d) {
 
 				var element = d3.select("#" + d.data.ISO3+"circle")
+				element.attr('fill', "#004b78")
 				
 
 				divMap.transition()
@@ -246,10 +258,20 @@
 				var fromTop= parseFloat(element.attr('cy')) +30
 
 				divMap.html(htmlText)
-					.style("left", element.attr('cx') + "px")
-					.style("top", fromTop + "px");
+					.style("left", event.pageX) //element.attr('cx') + "px")
+					.style("top", event.pageY)//fromTop + "px");
+			})
+			.on('mousemove', function (d) {
+				divMap
+					.style("left", event.pageX) //element.attr('cx') + "px")
+					.style("top", event.pageY)//fromTop + "px");
+
 			})
 			.on('mouseout', function (d) {
+
+				var element = d3.select("#" + d.data.ISO3 + "circle")
+
+				element.attr('fill', "#0d9796")
 
 				divMap.transition()
 					.duration(250)
@@ -258,7 +280,7 @@
 			.on('click', function (d) {
 				window.open(
 					d.data.link,
-					'_blank' // <- This is what makes it open in a new window.
+					'_self' // <- This is what makes it open in a new window.
 				);
 			});
 			
@@ -349,6 +371,21 @@
 
 
 
+	function zoomed() {
+		svg
+			.selectAll('path') // To prevent stroke width from scaling
+			.attr('transform', d3.event.transform);
+		
+		svg
+			.selectAll('.couCircle') // To prevent stroke width from scaling
+
+			.attr('transform', d3.event.transform);
+
+		
+		svg
+			.selectAll('.cell') // To prevent stroke width from scaling
+			.attr('transform', d3.event.transform);	
+	}
     
 </script>
 

@@ -254,5 +254,7 @@ annotation.badge path.subject-pointer, .annotation.badge path.subject {
   #modedemploi {
     width: 100%;
     background:#0d9796;
+
+      color: #ffffff;
   }
 }

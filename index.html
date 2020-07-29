@@ -139,7 +139,7 @@
 			if(d.ISO3==value){
 				window.open(
 					d.link,
-					'_self' // <- This is what makes it open in a new window.
+					'_parent' // <- This is what makes it open in a new window.
 				);
 			}
 
@@ -280,7 +280,7 @@
 			.on('click', function (d) {
 				window.open(
 					d.data.link,
-					'_self' // <- This is what makes it open in a new window.
+					'_parent' // <- This is what makes it open in a new window.
 				);
 			});
 			
